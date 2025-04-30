@@ -72,16 +72,10 @@ export default function Chat() {
         const socket = createSocketConnection();
 
         // send events
-        // like an api call, join-> url, toUserId-> data
+        // like an api call, joinChat-> url, {toUserId}-> data
         // event name same with server
         socket.emit("joinChat", {loggedInUserId, toUserId})
         // as soon as pageload, make a connection
-
-        socket.on("user-online", (userId) => {
-            if (userId === toUserId) {
-              setUserOnline(true);
-            }
-        });
 
         socket.on("user-offline", (userId) => {
             if (userId === toUserId) {
