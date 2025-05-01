@@ -98,17 +98,6 @@ const Profile = () => {
                       />
                       Female
                     </label>
-                    <label className="flex items-center text-white">
-                      <input
-                        type="radio"
-                        name="gender"
-                        value="Other"
-                        checked={gender === "other"}
-                        onChange={(e) => setGender(e.target.value)}
-                        className="form-radio text-pink-500 mr-2"
-                      />
-                      Other
-                    </label>
                   </div>
                 </div>
 

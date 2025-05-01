@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../store/userSlice';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { BASE_URL } from '../utils/urlConstant'
 
 const Login = () => {
@@ -66,7 +66,7 @@ const Login = () => {
             </button>
             </form>
             <p className="text-sm text-center mt-4">
-            Not a user? <a href="/signup" className="text-blue-300 hover:underline">Sign up</a>
+            Not a user? <Link to="/signup" className="text-blue-300 hover:underline">Sign up</Link>
             </p>
         </div>
     </div>  
