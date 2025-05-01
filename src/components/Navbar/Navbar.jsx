@@ -50,10 +50,10 @@ export const Navbar = () => {
                         <li>
                             <Link to={"/requests"} className="justify-between" onClick={() => document.activeElement.blur()}>Requests</Link>
                         </li>
-                        <li><a onClick={() => {
-                            handleLogout,
-                            document.activeElement.blur()
-                        }}>Logout</a></li>
+                        <li><Link onClick={async () => {
+                            document.activeElement.blur(),
+                            await handleLogout()
+                        }}>Logout</Link></li>
                     </ul>
                 </div>
             }

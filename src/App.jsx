@@ -12,6 +12,7 @@ import { useEffect } from "react"
 import Profile from "./pages/Profile"
 import Connection from "./pages/Connection"
 import Requests from "./pages/Requests"
+import ViewProfileCard from "./components/ViewProfileCard"
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
           <Route path="/feed" element={<Feed />} />
           <Route path="/connection" element={<Connection />} />
           <Route path="/requests" element={<Requests />} />
+          <Route path="/viewProfile/:userId" element={<ViewProfileCard />} />
         </Route>
       </Routes>
     </div>

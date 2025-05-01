@@ -1,7 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router';
 
 const ConnectionCard = ({ user }) => {
 
+  const navigate = useNavigate();
+
+  const handleView = (id) => {
+    navigate("/viewProfile/"+id)
+  }
 
     return (
       <div className="w-full max-w-3xl mx-auto p-1">
@@ -16,7 +22,9 @@ const ConnectionCard = ({ user }) => {
                 <h1 className="text-xl font-semibold">{user.firstName} {user.lastName}</h1>
                 <h2 className="text-lg text-white/70 mb-2">{user.age}, {user.gender}</h2>
             </div>
-            <button className="px-4 cursor-pointer py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-white font-medium transition duration-200">
+            <button className="px-4 cursor-pointer py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-white font-medium transition duration-200"
+              onClick={()=>handleView(user._id)}
+            >
               View Profile
             </button>
         </div>
