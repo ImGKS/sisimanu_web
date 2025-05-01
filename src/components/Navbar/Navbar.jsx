@@ -42,10 +42,18 @@ export const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-30 w-52 p-2 backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl">
                         <li>
-                            <Link to={"/profile"} className="justify-between">Profile</Link>
+                            <Link to={"/profile"} className="justify-between" onClick={() => document.activeElement.blur()}>Profile</Link>
                         </li>
-                        <li><a>Settings</a></li>
-                        <li><a onClick={handleLogout}>Logout</a></li>
+                        <li>
+                            <Link to={"/connection"} className="justify-between" onClick={() => document.activeElement.blur()}>Connections</Link>
+                        </li>
+                        <li>
+                            <Link to={"/requests"} className="justify-between" onClick={() => document.activeElement.blur()}>Requests</Link>
+                        </li>
+                        <li><a onClick={() => {
+                            handleLogout,
+                            document.activeElement.blur()
+                        }}>Logout</a></li>
                     </ul>
                 </div>
             }

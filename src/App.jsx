@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { addUser } from "./store/userSlice"
 import { useEffect } from "react"
 import Profile from "./pages/Profile"
+import Connection from "./pages/Connection"
+import Requests from "./pages/Requests"
 
 function App() {
 
@@ -48,6 +50,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/connection" element={<Connection />} />
+          <Route path="/requests" element={<Requests />} />
         </Route>
       </Routes>
     </div>
