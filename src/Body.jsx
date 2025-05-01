@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer'
 
 const Body = () => {
   return (
-    <div className='flex flex-col h-screen overflow-hidden'>
+    <div className='flex flex-col justify-between  h-screen overflow-hidden'>
       <Navbar />
       <Outlet />
       <Footer />

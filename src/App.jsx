@@ -1,17 +1,51 @@
-import { Route, Routes } from "react-router"
+import { Route, Routes, useNavigate } from "react-router"
 import Body from "./Body"
 import Login from "./pages/Login"
 import Home from "./pages/Home"
 import SignUp from "./pages/Signup"
 import Feed from "./pages/Feed"
+import { BASE_URL } from "./utils/urlConstant"
+import axios from "axios"
+import { useDispatch, useSelector } from "react-redux"
+import { addUser } from "./store/userSlice"
+import { useEffect } from "react"
+import Profile from "./pages/Profile"
 
 function App() {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userData = useSelector((store) => store.user)
+
+  const fetchUser = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/profile/view", {
+        withCredentials: true
+      })
+
+      dispatch(addUser(res.data))
+    } catch (error) {
+      if(error.status === 401) {
+        navigate("/login")
+      }
+      console.log("error", error);
+    }
+  }
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUser()
+    }
+  },[])
+
   return (
     <div  style={{background: "#833AB4 linear-gradient(90deg,rgba(131, 58, 180, 1) 8%, rgba(179, 66, 66, 1) 57%, rgba(99, 17, 17, 1) 100%)"}} >
       <Routes>
         <Route path="/" element={<Body />} >
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/feed" element={<Feed />} />
         </Route>

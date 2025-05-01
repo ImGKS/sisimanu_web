@@ -80,7 +80,7 @@ const SignUp = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="block text-sm font-medium mb-1">Profile Pic</label>
+                    <label className="block text-sm font-medium mb-1">ProfilePic URL</label>
                     <input
                         type="file"
                         className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
