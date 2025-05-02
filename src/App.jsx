@@ -13,6 +13,7 @@ import Profile from "./pages/Profile"
 import Connection from "./pages/Connection"
 import Requests from "./pages/Requests"
 import ViewProfileCard from "./components/ViewProfileCard"
+import Chat from "./components/Chat"
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
           <Route path="/connection" element={<Connection />} />
           <Route path="/requests" element={<Requests />} />
           <Route path="/viewProfile/:userId" element={<ViewProfileCard />} />
+          <Route path="/chat/:userId" element={<Chat />} />
         </Route>
       </Routes>
     </div>

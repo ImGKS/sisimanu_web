@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { BASE_URL } from '../utils/urlConstant'
 
 const ViewProfileCard = () => {
 
     const params = useParams()
     const userId = params.userId;
+    const navigate = useNavigate();
 
     const [ userData, setUserData] = useState([])
 
@@ -25,6 +26,10 @@ const ViewProfileCard = () => {
         getProfileData()
     },[])
 
+    const handleChat = (id) => {
+      navigate("/chat/"+id)
+    }
+
   return (
     <div className="flex items-center justify-center">
       <div className="backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl shadow-xl p-8 w-80 flex flex-col items-start text-white">
@@ -39,7 +44,9 @@ const ViewProfileCard = () => {
         <p>{userData.age}, {userData.gender}</p>
         <p>{userData.about}</p>
         <div className="w-full flex justify-center space-x-4 mt-4">
-          <button className="px-4 py-2 rounded-lg bg-pink-500 text-white hover:bg-pink-600 cursor-pointer">
+          <button className="px-4 py-2 rounded-lg bg-pink-500 text-white hover:bg-pink-600 cursor-pointer"
+            onClick={() => handleChat(userData._id)}
+          >
             message
           </button>
         </div>
