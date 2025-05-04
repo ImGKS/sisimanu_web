@@ -18,9 +18,9 @@ const Home = () => {
 
     return (
       <div className="flex flex-col justify-center items-center" >
-        <img src={bg} alt='bg' />
+        <img src={bg} alt='bg' className='h-100 w-100' />
         <div className='flex justify-center'>
-            <button onClick={handleStart} className="bg-red-800 text-white text-3xl px-12 py-5 rounded-full cursor-pointer">
+            <button onClick={handleStart} className="bg-rose-400 text-white text-2xl px-8 py-3 rounded-full cursor-pointer">
                 Let's Start
             </button>
         </div>
