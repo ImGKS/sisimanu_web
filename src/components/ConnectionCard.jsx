@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router';
+import  batch  from "../assets/tickmark.png"
 
 const ConnectionCard = ({ user }) => {
 
@@ -23,7 +24,10 @@ const ConnectionCard = ({ user }) => {
           />
   
             <div className="text-white flex-1">
+              <div className='flex items-center'>
                 <h1 className="text-xl font-semibold">{user.firstName} {user.lastName}</h1>
+                <img src={batch} alt="icon" className="h-7 w-7 mx-1" />
+              </div>
                 <h2 className="text-lg text-white/70 mb-2">{user.age}, {user.gender}</h2>
             </div>
             <button className="px-4 cursor-pointer py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-white font-medium transition duration-200"

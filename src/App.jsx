@@ -14,6 +14,7 @@ import Connection from "./pages/Connection"
 import Requests from "./pages/Requests"
 import ViewProfileCard from "./components/ViewProfileCard"
 import Chat from "./components/Chat"
+import Premium from "./pages/Premium"
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
           <Route path="/requests" element={<Requests />} />
           <Route path="/viewProfile/:userId" element={<ViewProfileCard />} />
           <Route path="/chat/:userId" element={<Chat />} />
+          <Route path="/premium" element={<Premium />} />
         </Route>
       </Routes>
     </div>

@@ -1,7 +1,8 @@
 import React from "react";
+import  batch  from "../assets/tickmark.png"
 
 const FeedCard = ({user, updateUserRequest}) => {
-  const { firstName, lastName, profilePic, age, about, gender, _id } = user;
+  const { firstName, lastName, profilePic, age, about, gender, _id, isPremium } = user;
 
   const handleRequest = (status) => {
     updateUserRequest(status, _id)
@@ -17,7 +18,12 @@ const FeedCard = ({user, updateUserRequest}) => {
             className="w-50 h-50 border border-white/30  rounded-2xl  shadow-md mb-4"
           />
         </div>
-        <h2 className="text-2xl font-semibold">{firstName + " " + lastName}</h2>
+        <div className="flex items-center">
+          <h2 className="text-2xl font-semibold">{firstName + " " + lastName}</h2>
+          {isPremium &&
+              <img src={batch} alt="icon" className="h-7 w-7 mx-1" />
+          }
+        </div>
         <p>{age}, {gender}</p>
         <p>{about}</p>
         <div className="w-full flex justify-center space-x-4 mt-4">

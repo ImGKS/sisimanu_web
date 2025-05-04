@@ -29,7 +29,7 @@ const Login = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-cover bg-center overflow-hidden">
         <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl p-8 w-96 text-white">
-            <h2 className="text-2xl font-semibold mb-4 text-center">Welcome to TinderGO</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-center">Welcome to Sisimaru</h2>
             <form>
             <div className="mb-4">
                 <label className="block text-sm font-medium mb-1">Email</label>

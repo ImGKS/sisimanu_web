@@ -14,6 +14,8 @@ export default function Chat() {
     const loggedInUserId = loggedInUser?._id;
 
     const [messages, setMessages] = useState([]);
+    const [userOnline, setUserOnline] = useState(false);
+    const [toUserData, setToUserData] = useState(null);
 
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
@@ -29,6 +31,17 @@ export default function Chat() {
             }
         })
         setMessages(chatMessages)        
+    }
+
+    const getProfileData = async () => {
+        try {
+            const res = await axios.get(BASE_URL + "/profile/" + toUserId, 
+                {withCredentials: true}
+            );   
+            setToUserData(res.data.data)
+        } catch (error) {
+            console.log("Error :", error.message);
+        } 
     }
 
     const handleSend = (e) => {
@@ -47,7 +60,10 @@ export default function Chat() {
     };
 
     useEffect(()=>{
-        fetchChats()
+        Promise.allSettled([
+            fetchChats(),
+            getProfileData()
+        ])
     },[])
 
     useEffect(() => {
@@ -60,6 +76,26 @@ export default function Chat() {
         // event name same with server
         socket.emit("joinChat", {loggedInUserId, toUserId})
         // as soon as pageload, make a connection
+
+        socket.on("user-online", (userId) => {
+            if (userId === toUserId) {
+              setUserOnline(true);
+            }
+        });
+
+        socket.on("user-offline", (userId) => {
+            if (userId === toUserId) {
+              setUserOnline(false);
+            }
+        });
+
+        socket.on("user-online", (userId) => {
+            if (userId === toUserId) {
+              setUserOnline(true);
+              // You could emit back your own presence again if needed
+              // socket.emit("i-am-online", loggedInUserId);
+            }
+          });
 
         socket.on("messageReceived", ({ 
             firstName,
@@ -81,6 +117,7 @@ export default function Chat() {
 
         // need to cleanup
         return () => {
+            socket.emit("leaveChat", { loggedInUserId, toUserId });
             socket.disconnect();
         }
     },[loggedInUserId, toUserId])
@@ -97,28 +134,31 @@ export default function Chat() {
                     'linear-gradient(90deg, rgba(131, 58, 180, 1) 8%, rgba(179, 66, 66, 1) 57%, rgba(99, 17, 17, 1) 100%)'
             }}
         >
-            <h2 className='text-center text-3xl text-white/70'>Chats</h2>
             <form
                 className="w-[60%] h-[70vh] backdrop-blur-md bg-white/20 rounded-2xl shadow-xl flex flex-col p-4 border border-white/30"
             >
+                {toUserData &&
+                    <div className='text-left pb-1 flex items-center w-full text-xl text-white/70'>
+                        <img src={toUserData.profilePic} alt="avatar" className="w-10 h-10 rounded-full" />
+                        <div>
+                            <h4 className="text-xl px-3 font-semibold text-white">{toUserData.firstName}</h4>
+                            <h5 className={`ml-2 text-sm ${userOnline ? "text-green-400" : "text-gray-400"}`}>
+                                ● {userOnline ? "Online" : "Offline"}
+                            </h5>
+                        </div>
+                    </div>
+                }
                 {/* Chat Area */}
                 <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
                     {messages.map((msg, idx) => (
                         <div key={idx} className={`flex ${msg.firstName === loggedInUser.firstName ? 'justify-end' : 'justify-start'}`}>
                             <div className="flex items-center space-x-2">
-                                {msg.firstName !== loggedInUser.firstName && (
-                                    <img src={msg.profilePic} alt="avatar" className="w-15 h-15 rounded-full" />
-                                )}
                                 <div>
-                                    <div className="text-sm font-semibold text-white">{msg.firstName !== loggedInUser.firstName && msg.firstName}</div>
                                     <div className={`rounded-xl px-4 py-2 mt-1 max-w-xs text-white ${msg.firstName !== loggedInUser.firstName ? 'bg-blue-500/80' : 'bg-gray-500/70'}`}>
                                         {msg.text}
                                     </div>
                                     <div className="text-xs text-white/60 mt-1">{msg.firstName === loggedInUser.firstName ? `Seen at ${msg.time}` : msg.time}</div>
                                 </div>
-                                {msg.firstName === loggedInUser.firstName && (
-                                    <img src={msg.profilePic} alt="avatar" className="w-15 h-15 rounded-full" />
-                                )}
                             </div>
                         </div>
                     ))}

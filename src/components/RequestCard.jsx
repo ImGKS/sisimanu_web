@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BASE_URL } from '../utils/urlConstant';
 import axios from 'axios';
+import  batch  from "../assets/tickmark.png"
 
 const RequestCard = ({ user }) => {
 
@@ -30,7 +31,12 @@ const RequestCard = ({ user }) => {
             />
     
               <div className="text-white flex-1">
-                  <h1 className="text-xl font-semibold">{user?.firstName} {user?.lastName}</h1>
+                   <div className="flex items-center">
+                      <h2 className="text-2xl font-semibold">{user?.firstName + " " + user?.lastName}</h2>
+                      {user?.isPremium &&
+                        <img src={batch} alt="icon" className="h-7 w-7 mx-1" />
+                      }
+                    </div>
                   <h2 className="text-lg text-white/70 mb-2">{user?.age}, {user?.gender}</h2>
               </div>
               {showButtons && <>

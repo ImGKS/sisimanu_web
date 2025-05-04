@@ -19,6 +19,8 @@ const Profile = () => {
   const[profilePic, setProfilePic] = useState(user?.profilePic);
   const [showToast, setShowToast] = useState(false)
 
+  const isPremium = user?.isPremium
+
   const handleSave = async(e) => {
       e.preventDefault();
       try {
@@ -151,7 +153,7 @@ const Profile = () => {
               </form>
           </div>
         </div>  
-        <FeedCard user={{firstName, lastName, profilePic, age, about, gender}} />
+        <FeedCard user={{firstName, lastName, profilePic, age, about, gender, isPremium}} />
       </div>
       {showToast &&
         <div className="toast toast-end toast-top">
