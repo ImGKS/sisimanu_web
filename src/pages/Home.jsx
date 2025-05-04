@@ -1,16 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import bg from "../assets/background/bg.png"
 
 const Home = () => {
 
     const navigate = useNavigate();
+    const user = useSelector(store => store.user)
 
     const handleStart = () => {
+      if (!user) {
         navigate("/login")
+      } else {
+        navigate("/feed")
+      }
     }
 
     return (
-      <div className="flex justify-center items-center bg-[url('https://img.freepik.com/free-vector/virtual-relationships-online-dating-cartoon-illustration_1284-58111.jpg?t=st=1745969065~exp=1745972665~hmac=4585c9567dd6510a7582226e50bb8765f1e7dfa1dcded641e2be3a710c79171f&w=1380')] bg-cover bg-center h-screen">
+      <div className="flex flex-col justify-center items-center" >
+        <img src={bg} alt='bg' />
         <div className='flex justify-center'>
             <button onClick={handleStart} className="bg-red-800 text-white text-3xl px-12 py-5 rounded-full cursor-pointer">
                 Let's Start
