@@ -66,8 +66,8 @@ export const Navbar = () => {
                 <h1 className="m-0">Sisimanu</h1>
             </Link>
             {user &&
-                <div className="flex items-center gap-2 relative">
-                    <form onSubmit={handleEmailSearch}>
+                <>
+                    <form onSubmit={handleEmailSearch} className="flex">
                         <label className="input bg-transparent border border-white text-white flex items-center gap-2">
                             <svg
                                 className="h-[1em] opacity-50 text-white"
@@ -94,66 +94,72 @@ export const Navbar = () => {
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </label>
+                        <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 mx-3">
+                            Search
+                        </button>
                     </form>
-                    {searchedUser?.firstName &&
-                        <div className="absolute top-full mt-2 z-50 cursor-pointer"  ref={cardRef} 
-                            onClick={() => handleSearchCard(searchedUser?._id)}>
-                            <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
-                            <img
-                                src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
-                                alt="Profile"
-                                className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
-                            />
                     
-                                <div className="text-white flex-1">
-                                    <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
-                                    <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                    <div className="flex items-center gap-2 relative">
+                        {searchedUser?.firstName &&
+                            <div className="absolute top-full mt-2 z-50 cursor-pointer"  ref={cardRef} 
+                                onClick={() => handleSearchCard(searchedUser?._id)}>
+                                <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
+                                <img
+                                    src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
+                                    alt="Profile"
+                                    className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
+                                />
+                        
+                                    <div className="text-white flex-1">
+                                        <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
+                                        <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-
-                    <div className="dropdown dropdown-end flex items-center">
-                        {user?.firstName && 
-                            <h4 className="flex px-3"> Welcome,
-                                <span className=" flex font-bold">
-                                    {user?.firstName}
-                                    {user?.isPremium &&
-                                        <img src={batch} alt="icon" className="h-7 w-7" />
-                                    }
-                                </span>
-                            </h4>
                         }
-                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                            <div className="w-10 rounded-full">
-                                <img
-                                    alt="Navbar component"
-                                    src={ user ? user?.profilePic : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
-                                />
+
+                        <div className="dropdown dropdown-end flex items-center">
+                            {user?.firstName && 
+                                <h4 className="flex px-3"> Welcome,
+                                    <span className=" flex font-bold">
+                                        {user?.firstName}
+                                        {user?.isPremium &&
+                                            <img src={batch} alt="icon" className="h-7 w-7" />
+                                        }
+                                    </span>
+                                </h4>
+                            }
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Navbar component"
+                                        src={ user ? user?.profilePic : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                                    />
+                                </div>
                             </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-50 w-52 p-2 backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl">
+                                <li>
+                                    <Link to={"/profile"} className="justify-between" onClick={() => document.activeElement.blur()}>Profile</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/connection"} className="justify-between" onClick={() => document.activeElement.blur()}>Connections</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/requests"} className="justify-between" onClick={() => document.activeElement.blur()}>Requests</Link>
+                                </li>
+                                <li>
+                                    <Link to={"/premium"} className="justify-between" onClick={() => document.activeElement.blur()}>Premium</Link>
+                                </li>
+                                <li><Link onClick={async () => {
+                                    document.activeElement.blur(),
+                                    await handleLogout()
+                                }}>Logout</Link></li>
+                            </ul>
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-50 w-52 p-2 backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl">
-                            <li>
-                                <Link to={"/profile"} className="justify-between" onClick={() => document.activeElement.blur()}>Profile</Link>
-                            </li>
-                            <li>
-                                <Link to={"/connection"} className="justify-between" onClick={() => document.activeElement.blur()}>Connections</Link>
-                            </li>
-                            <li>
-                                <Link to={"/requests"} className="justify-between" onClick={() => document.activeElement.blur()}>Requests</Link>
-                            </li>
-                            <li>
-                                <Link to={"/premium"} className="justify-between" onClick={() => document.activeElement.blur()}>Premium</Link>
-                            </li>
-                            <li><Link onClick={async () => {
-                                document.activeElement.blur(),
-                                await handleLogout()
-                            }}>Logout</Link></li>
-                        </ul>
                     </div>
-                </div>
+                </>
             }
       </div>
     )
