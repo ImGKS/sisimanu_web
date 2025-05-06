@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import RequestCard from '../components/RequestCard'
 import axios from 'axios'
 import { BASE_URL } from '../utils/urlConstant'
+import { toast } from 'react-toastify'
 
 const Requests = () => {
 
@@ -11,8 +12,10 @@ const Requests = () => {
     try {
       const res = await axios.get(BASE_URL + "/user/received/request", {withCredentials: true})
       setRequest(res?.data?.data)
+      toast.success("Request fetched successfully.")
     } catch (error) {
       console.log("error", error);
+      toast.error("Something went wrong.")
     }
   }
 

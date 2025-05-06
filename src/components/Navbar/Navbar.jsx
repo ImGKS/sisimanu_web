@@ -7,6 +7,7 @@ import { removeFeed } from "../../store/feedSlice"
 import { useEffect, useRef, useState } from "react"
 import  sisi  from "../../assets/sisi.svg"
 import  batch  from "../../assets/tickmark.png"
+import { toast } from "react-toastify"
 
 export const Navbar = () => {
 
@@ -34,6 +35,7 @@ export const Navbar = () => {
             await axios.post(BASE_URL+ "/logout", {}, { withCredentials: true });
             dispatch(removeUser());
             dispatch(removeFeed());
+            toast.success("Logout successsfully.")
             navigate("/")
         } catch (error) {
             console.error(error)
@@ -67,57 +69,60 @@ export const Navbar = () => {
             </Link>
             {user &&
                 <>
-                    <form onSubmit={handleEmailSearch} className="flex">
-                        <label className="input bg-transparent border border-white text-white flex items-center gap-2">
-                            <svg
-                                className="h-[1em] opacity-50 text-white"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                            >
-                                <g
-                                strokeLinejoin="round"
-                                strokeLinecap="round"
-                                strokeWidth="2.5"
-                                fill="none"
-                                stroke="currentColor"
+                    <div>
+                        <form onSubmit={handleEmailSearch} className="flex">
+                            <label className="input bg-transparent border border-white text-white flex items-center gap-2">
+                                <svg
+                                    className="h-[1em] opacity-50 text-white"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
                                 >
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                                </g>
-                            </svg>
-                            <input
-                                value={email}
-                                type="search"
-                                required
-                                placeholder="Search by emailId"
-                                className="bg-transparent text-white placeholder-white outline-none"
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </label>
-                        <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 mx-3">
-                            Search
-                        </button>
-                    </form>
-                    
-                    <div className="flex items-center gap-2 relative">
-                        {searchedUser?.firstName &&
-                            <div className="absolute top-full mt-2 z-50 cursor-pointer"  ref={cardRef} 
-                                onClick={() => handleSearchCard(searchedUser?._id)}>
-                                <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
-                                <img
-                                    src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
-                                    alt="Profile"
-                                    className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
+                                    <g
+                                    strokeLinejoin="round"
+                                    strokeLinecap="round"
+                                    strokeWidth="2.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    >
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                    </g>
+                                </svg>
+                                <input
+                                    value={email}
+                                    type="search"
+                                    required
+                                    placeholder="Search by emailId"
+                                    className="bg-transparent text-white placeholder-white outline-none"
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
-                        
-                                    <div className="text-white flex-1">
-                                        <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
-                                        <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                            </label>
+                            <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 mx-3">
+                                Search
+                            </button>
+                        </form>
+                        {searchedUser?.firstName &&
+                            <div className="flex justify-center absolute z-50">
+                                <div className=" top-full mt-2 scursor-pointer"  ref={cardRef} 
+                                    onClick={() => handleSearchCard(searchedUser?._id)}>
+                                    <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
+                                    <img
+                                        src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
+                                        alt="Profile"
+                                        className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
+                                    />
+                            
+                                        <div className="text-white flex-1">
+                                            <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
+                                            <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         }
-
+                    </div>
+                    
+                    <div className="flex items-center gap-2 relative">
                         <div className="dropdown dropdown-end flex items-center">
                             {user?.firstName && 
                                 <h4 className="flex px-3"> Welcome,

@@ -15,6 +15,7 @@ import Requests from "./pages/Requests"
 import ViewProfileCard from "./components/ViewProfileCard"
 import Chat from "./components/Chat"
 import Premium from "./pages/Premium"
+import { toast, ToastContainer } from "react-toastify"
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
     } catch (error) {
       if(error.status === 401) {
         navigate("/login")
+        toast.info('Please login to continue.')
       }
       console.log("error", error);
     }
@@ -60,6 +62,7 @@ function App() {
           <Route path="/premium" element={<Premium />} />
         </Route>
       </Routes>
+      <ToastContainer autoClose={2000} />
     </div>
   )
 }

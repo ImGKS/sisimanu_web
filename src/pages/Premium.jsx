@@ -9,6 +9,7 @@ import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
+import { toast } from "react-toastify";
 
 const SubscriptionCard = ({ title, price, plan, benefits, disabled, selectedPlan, expire, handlePayment }) => (
   <div className="bg-white/10 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl p-6 w-full max-w-sm h-fit text-white">
@@ -71,6 +72,7 @@ const Premium = () => {
             )
 
             if(response?.data) {
+              toast.info("Please complete the payment.")
                 window.location.href = response?.data?.session?.url;
             }
         } catch (error) {
@@ -84,7 +86,7 @@ const Premium = () => {
                 {session_id: sessionId},
                 {withCredentials: true}
             )
-             
+            toast.info("Please wait while we are activating the plan.")
             dispatch(addUser(response.data.user))
             setIsSaving(false)
             

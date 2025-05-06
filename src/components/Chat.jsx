@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { getDateTime } from '../utils/helper';
 import axios from 'axios';
 import { BASE_URL } from '../utils/urlConstant';
+import { toast } from 'react-toastify';
 
 export default function Chat() {
     const params = useParams()
@@ -80,12 +81,14 @@ export default function Chat() {
         socket.on("user-offline", (userId) => {
             if (userId === toUserId) {
               setUserOnline(false);
+              toast.error("user went offline.")
             }
         });
 
         socket.on("user-online", (userId) => {
             if (userId === toUserId) {
               setUserOnline(true);
+              toast.success("user online now.")
               // You could emit back your own presence again if needed
               // socket.emit("i-am-online", loggedInUserId);
             }
