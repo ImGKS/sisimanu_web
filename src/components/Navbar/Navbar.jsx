@@ -60,6 +60,13 @@ export const Navbar = () => {
         setEmail('')
         navigate("/viewProfile/"+id)
     }
+
+    useEffect(()=>{
+        if(user._id === searchedUser._id) {
+            toast.info("Searched User is same as LoggedIn user.")
+            setEmail('')
+        }
+    },[searchedUser._id])
     
     return (
         <div className="navbar h-16 bg-black/60 text-white flex items-center justify-between px-4 shadow-md">
@@ -97,27 +104,29 @@ export const Navbar = () => {
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
                             </label>
-                            <button class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 mx-3">
+                            <button className="cursor-pointer bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 mx-3">
                                 Search
                             </button>
                         </form>
-                        {searchedUser?.firstName &&
+                        {searchedUser?.firstName &&                                
                             <div className="flex justify-center absolute z-50">
-                                <div className=" top-full mt-2 scursor-pointer"  ref={cardRef} 
-                                    onClick={() => handleSearchCard(searchedUser?._id)}>
-                                    <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
-                                    <img
-                                        src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
-                                        alt="Profile"
-                                        className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
-                                    />
-                            
-                                        <div className="text-white flex-1">
-                                            <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
-                                            <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                                {searchedUser._id !== user._id &&
+                                    <div className=" top-full mt-2 cursor-pointer"  ref={cardRef} 
+                                        onClick={() => handleSearchCard(searchedUser?._id)}>
+                                        <div className="backdrop-blur-md bg-white/10 rounded-2xl shadow-xl border border-white/20 px-5 py-2 flex flex-col md:flex-row items-center gap-3">
+                                        <img
+                                            src={searchedUser?.profilePic || "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg"}
+                                            alt="Profile"
+                                            className="w-15 h-15 rounded-full object-cover border-4 border-white/30 shadow-md"
+                                        />
+                                
+                                            <div className="text-white flex-1">
+                                                <h1 className="text-xl font-semibold">{searchedUser?.firstName} {searchedUser?.lastName}</h1>
+                                                <h2 className="text-lg text-white/70 mb-2">{searchedUser?.age}, {searchedUser?.gender}</h2>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                         }
                     </div>

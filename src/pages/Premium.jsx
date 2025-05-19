@@ -35,7 +35,7 @@ const SubscriptionCard = ({ title, price, plan, benefits, disabled, selectedPlan
           >
         {selectedPlan !== plan  ? "Buy Now" : "Selected"}
       </button>
-      <p className="text-black">{expire && selectedPlan === plan && `Plan will expires at ${expire}`}</p>
+      {/* <p className="text-black">{expire && selectedPlan === plan && `Plan will expires at ${expire}`}</p> */}
     </div>
   </div>
 );

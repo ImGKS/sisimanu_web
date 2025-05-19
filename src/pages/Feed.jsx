@@ -29,12 +29,13 @@ const Feed = () => {
   },[])
 
   const updateUserRequest = async (status, id) => {
+    const message = status === "interested" ? "Request sent successfully." : "User get Ignored."
     try {
       await axios.post(`${BASE_URL}/request/send/${status}/${id}`, 
           {},
           {withCredentials: true}
       ); 
-      toast.success("Request updated successfully.")
+      toast.success(message)
       getFeed()
 
     } catch (error) {
@@ -45,7 +46,7 @@ const Feed = () => {
 
   return (
     <div className="min-h-fit flex justify-center items-center cursor-pointer">
-      {feed?.[currentIndex] ? (
+      {feed?.[currentIndex] && feed.length > 0 ? (
         <motion.div
           className="absolute w-80"
           drag="x"

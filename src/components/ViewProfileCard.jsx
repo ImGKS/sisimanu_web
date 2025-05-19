@@ -24,7 +24,7 @@ const ViewProfileCard = () => {
 
     useEffect (() => {
         getProfileData()
-    },[])
+    },[userId])
 
     const handleChat = (id) => {
       navigate("/chat/"+id)

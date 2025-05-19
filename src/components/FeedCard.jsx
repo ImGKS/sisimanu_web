@@ -28,7 +28,7 @@ const FeedCard = ({user, updateUserRequest}) => {
         <p>{about}</p>
         <div className="w-full flex justify-center space-x-4 mt-4">
           <button className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
-            onClick={() => () => handleRequest("ignored")}
+            onClick={() => handleRequest("ignored")}
           >
             Ignore
           </button>
