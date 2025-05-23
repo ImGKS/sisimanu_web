@@ -62,11 +62,11 @@ export const Navbar = () => {
     }
 
     useEffect(()=>{
-        if(user._id === searchedUser._id) {
+        if(searchedUser && user && user?._id === searchedUser?._id) {
             toast.info("Searched User is same as LoggedIn user.")
             setEmail('')
         }
-    },[searchedUser._id])
+    },[searchedUser?._id])    
     
     return (
         <div className="navbar h-16 bg-black/60 text-white flex items-center justify-between px-4 shadow-md">

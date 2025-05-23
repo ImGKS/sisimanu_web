@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const[firstName, setFirstName] = useState('');
@@ -11,8 +12,6 @@ const SignUp = () => {
     const[gender, setGender] = useState('');
     const[age, setAge] = useState('');
     const[about, setAbout] = useState('');
-    const[showToast, setShowToast] = useState(false)
-    const[message, setMessage] = useState('')
 
     const navigate = useNavigate()
 
@@ -25,10 +24,10 @@ const SignUp = () => {
             );   
 
             if (res.status === 200) {
+                toast.success("Sign up successfully.")
                 navigate("/login")
             } else {
-                setMessage(res.message)
-                setShowToast(true);
+                toast.success(res.message)
             }
         } catch (error) {
             console.log("Error :", error.message);
@@ -36,153 +35,144 @@ const SignUp = () => {
     }
 
   return (
-    <>
-        <div className="h-screen flex items-center justify-center bg-cover bg-center overflow-hidden">
-            <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl px-8 py-4 w-96 text-white">
-                <h2 className="text-2xl font-semibold mb-3 text-center">Welcome to Sisimaru</h2>
-                <form className='h-[60vh] overflow-y-scroll p-2'>
-                    <div className="mb-2">
-                        <label className="block text-sm font-medium mb-1">First Name</label>
-                        <input
-                            type="text"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="Enter your first name here"
-                            value={firstName}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setFirstName(e.target.value)
-                                
-                            }}
+    <div className="h-screen flex items-center justify-center bg-cover bg-center overflow-hidden">
+        <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl px-8 py-4 w-96 text-white">
+            <h2 className="text-2xl font-semibold mb-3 text-center">Welcome to Sisimaru</h2>
+            <form className='h-[60vh] overflow-y-scroll p-2'>
+                <div className="mb-2">
+                    <label className="block text-sm font-medium mb-1">First Name</label>
+                    <input
+                        type="text"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="Enter your first name here"
+                        value={firstName}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setFirstName(e.target.value)
+                            
+                        }}
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="block text-sm font-medium mb-1">Last Name</label>
+                    <input
+                        type="text"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="Enter your last name here"
+                        value={lastName}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setLastName(e.target.value)
+                            
+                        }}
+                    />
+                </div>
+                <div className="mb-2">
+                <label className="block text-sm font-medium text-white">Gender</label>
+                <div className="flex items-center gap-6">
+                    <label className="flex items-center text-white">
+                    <input
+                        type="radio"
+                        name="gender"
+                        value="male"
+                        checked={gender === "male"}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="form-radio text-pink-500 mr-2"
+                    />
+                    Male
+                    </label>
+                    <label className="flex items-center text-white">
+                    <input
+                        type="radio"
+                        name="gender"
+                        value="female"
+                        checked={gender === "female"}
+                        onChange={(e) => setGender(e.target.value)}
+                        className="form-radio text-pink-500 mr-2"
+                    />
+                    Female
+                    </label>
+                </div>
+                </div>
+                <div className="mb-2">
+                    <label className="block text-sm font-medium mb-1">Age</label>
+                    <input
+                        type="number"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="you@example.com"
+                        value={age}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setAge(e.target.value)}
+                        }
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="block text-sm font-medium mb-1">EmailId</label>
+                    <input
+                        type="email"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="you@example.com"
+                        value={emailId}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setEmailId(e.target.value)}
+                        }
+                    />
+                </div>
+                <div className="mb-2">
+                    <label className="block text-sm font-medium mb-1">Password</label>
+                    <input
+                        type="password"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="••••••••"
+                        value={password}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setPassword(e.target.value)}
+                        }
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="block text-sm font-medium mb-1">ProfilePic URL</label>
+                    <input
+                        type="text"
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="Enter your pic link here"
+                        value={profilePic}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setProfilePic(e.target.value)}
+                        }
                         />
-                    </div>
-                    <div className="mb-2">
-                        <label className="block text-sm font-medium mb-1">Last Name</label>
-                        <input
-                            type="text"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="Enter your last name here"
-                            value={lastName}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setLastName(e.target.value)
-                                
-                            }}
+                </div>
+                <div className="mb-3">
+                    <label className="block text-sm font-medium mb-1">About yourself</label>
+                    <textarea
+                        className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
+                        placeholder="Write about yourself here"
+                        value={about}
+                        rows={4}
+                        onChange={(e) => {
+                            e.preventDefault()
+                            setAbout(e.target.value)}
+                        }
                         />
-                    </div>
-                    <div className="mb-2">
-                    <label className="block text-sm font-medium text-white">Gender</label>
-                    <div className="flex items-center gap-6">
-                        <label className="flex items-center text-white">
-                        <input
-                            type="radio"
-                            name="gender"
-                            value="male"
-                            checked={gender === "male"}
-                            onChange={(e) => setGender(e.target.value)}
-                            className="form-radio text-pink-500 mr-2"
-                        />
-                        Male
-                        </label>
-                        <label className="flex items-center text-white">
-                        <input
-                            type="radio"
-                            name="gender"
-                            value="female"
-                            checked={gender === "female"}
-                            onChange={(e) => setGender(e.target.value)}
-                            className="form-radio text-pink-500 mr-2"
-                        />
-                        Female
-                        </label>
-                    </div>
-                    </div>
-                    <div className="mb-2">
-                        <label className="block text-sm font-medium mb-1">Age</label>
-                        <input
-                            type="number"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="you@example.com"
-                            value={age}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setAge(e.target.value)}
-                            }
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label className="block text-sm font-medium mb-1">EmailId</label>
-                        <input
-                            type="email"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="you@example.com"
-                            value={emailId}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setEmailId(e.target.value)}
-                            }
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label className="block text-sm font-medium mb-1">Password</label>
-                        <input
-                            type="password"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setPassword(e.target.value)}
-                            }
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-sm font-medium mb-1">ProfilePic URL</label>
-                        <input
-                            type="text"
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="Enter your pic link here"
-                            value={profilePic}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setProfilePic(e.target.value)}
-                            }
-                            />
-                    </div>
-                    <div className="mb-3">
-                        <label className="block text-sm font-medium mb-1">About yourself</label>
-                        <textarea
-                            className="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white/60 focus:outline-none"
-                            placeholder="Write about yourself here"
-                            value={about}
-                            rows={4}
-                            onChange={(e) => {
-                                e.preventDefault()
-                                setAbout(e.target.value)}
-                            }
-                            />
-                    </div>
-                
-                    <button 
-                        type="submit" 
-                        className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold cursor-pointer"
-                        onClick={handleSignUp}
-                        >
-                        Sign up
-                    </button>
-                </form>
-                <p className="text-sm text-center mt-2">
-                Already a user? <a href="/login" className="text-blue-300 hover:underline">Sign in</a>
-                </p>
-            </div>
+                </div>
+            
+                <button 
+                    type="submit" 
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-semibold cursor-pointer"
+                    onClick={handleSignUp}
+                    >
+                    Sign up
+                </button>
+            </form>
+            <p className="text-sm text-center mt-2">
+            Already a user? <a href="/login" className="text-blue-300 hover:underline">Sign in</a>
+            </p>
         </div>
-        {showToast &&
-            <div className="toast toast-end toast-top">
-            <div className="alert alert-info">
-                <span>{message}</span>
-            </div>
-            </div>
-        } 
-    </> 
+    </div> 
   )
 }
 

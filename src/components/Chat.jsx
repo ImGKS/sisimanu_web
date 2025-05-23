@@ -21,6 +21,16 @@ export default function Chat() {
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
 
+    useEffect(()=>{
+        if(toUserData) {
+            if(userOnline) {
+                toast.success("user online");
+            } else {
+                toast.info("user offline.")
+            }
+        }
+    },[userOnline])
+
     const fetchChats = async() => {
         const chats = await axios.get(BASE_URL + "/chat/" + toUserId, {withCredentials: true} );
         const chatMessages = chats?.data?.data?.messages.map((msg) => {
@@ -80,17 +90,13 @@ export default function Chat() {
 
         socket.on("user-offline", (userId) => {
             if (userId === toUserId) {
-              setUserOnline(false);
-              toast.error("user went offline.")
+                setUserOnline(false);
             }
         });
 
         socket.on("user-online", (userId) => {
             if (userId === toUserId) {
               setUserOnline(true);
-              toast.success("user online now.")
-              // You could emit back your own presence again if needed
-              // socket.emit("i-am-online", loggedInUserId);
             }
           });
 

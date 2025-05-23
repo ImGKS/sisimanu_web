@@ -11,7 +11,7 @@ const RequestCard = ({ user }) => {
   const handleRequest = async (status, id) => {
     try { 
       await axios.post(BASE_URL + `/request/review/${status}/${id}`,{}, {withCredentials: true})
-      toast.success("Request status updated successfullt.")
+      toast.success("Request status updated successfully.")
       setShowButtons(false)
     } catch  (error) {
       console.log("errror", error)
