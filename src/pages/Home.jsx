@@ -7,9 +7,9 @@ const Home = () => {
 
     const navigate = useNavigate();
     const user = useSelector(store => store.user)
-
+    
     const handleStart = () => {
-      if (!user) {
+      if (user === "user not found") {
         navigate("/login")
       } else {
         navigate("/feed")

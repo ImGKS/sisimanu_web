@@ -74,7 +74,7 @@ export const Navbar = () => {
                 <img src={sisi} alt="logo" className="h-15 w-15 " style={{ filter: 'invert(100%) brightness(1.3) contrast(1.2)' }}/>
                 <h1 className="m-0">Sisimanu</h1>
             </Link>
-            {user &&
+            {user?.firstName &&
                 <>
                     <div>
                         <form onSubmit={handleEmailSearch} className="flex">
@@ -134,23 +134,25 @@ export const Navbar = () => {
                     <div className="flex items-center gap-2 relative">
                         <div className="dropdown dropdown-end flex items-center">
                             {user?.firstName && 
-                                <h4 className="flex px-3"> Welcome,
-                                    <span className=" flex font-bold">
-                                        {user?.firstName}
-                                        {user?.isPremium &&
-                                            <img src={batch} alt="icon" className="h-7 w-7" />
-                                        }
-                                    </span>
-                                </h4>
+                                <>
+                                    <h4 className="flex px-3"> Welcome,
+                                        <span className=" flex font-bold">
+                                            {user?.firstName}
+                                            {user?.isPremium &&
+                                                <img src={batch} alt="icon" className="h-7 w-7" />
+                                            }
+                                        </span>
+                                    </h4>
+                                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img
+                                                alt="Navbar component"
+                                                src={ user ? user?.profilePic : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
+                                            />
+                                        </div>
+                                    </div>
+                                </>
                             }
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    <img
-                                        alt="Navbar component"
-                                        src={ user ? user?.profilePic : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
-                                    />
-                                </div>
-                            </div>
                             <ul
                                 tabIndex={0}
                                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-50 w-52 p-2 backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl">
