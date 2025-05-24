@@ -21,15 +21,17 @@ const Connection = () => {
     fetchConnections()
   },[])
 
-  if (userConnection.length === 0) return <h1 className='text-center text-3xl text-white/70'>No connection found.</h1>
+  if (userConnection?.length === 0) return <h1 className='text-center text-3xl text-white/70'>No connection found.</h1>
 
   return (
-    <div className='flex flex-col gap-2 m-1 justify-center items-center h-[700px] overflow-y-scroll'>
-      <h2 className='text-center text-3xl text-white/70'>Connections</h2>
-      {userConnection.map((user) => {
-        return <ConnectionCard user={user} key={user._id} />
-      })}
-    </div>
+    <>
+      <h2 className='text-center text-3xl my-5 text-white'>Connections</h2>
+      <div className='flex flex-col gap-2 mx-2 justify-start items-start h-[700px] overflow-y-scroll'>
+        {userConnection?.map((user) => {
+          return  <ConnectionCard user={user} key={user?._id} />
+        })}
+      </div>
+    </>
   )
 }
 

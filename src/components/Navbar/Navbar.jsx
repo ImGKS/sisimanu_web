@@ -72,11 +72,11 @@ export const Navbar = () => {
         <div className="navbar h-16 bg-black/60 text-white flex items-center justify-between px-4 shadow-md">
             <Link to={user ? "/feed" : "/"} className="flex items-center text-xl font-bold"  >
                 <img src={sisi} alt="logo" className="h-15 w-15 " style={{ filter: 'invert(100%) brightness(1.3) contrast(1.2)' }}/>
-                <h1 className="m-0">Sisimanu</h1>
+                <h1 className="hidden sm:block m-0">Sisimanu</h1>
             </Link>
             {user?.firstName &&
                 <>
-                    <div>
+                    <div className="hidden sm:block">
                         <form onSubmit={handleEmailSearch} className="flex">
                             <label className="input bg-transparent border border-white text-white flex items-center gap-2">
                                 <svg

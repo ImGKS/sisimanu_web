@@ -42,7 +42,7 @@ const Profile = () => {
       <div className="flex items-center justify-center bg-cover bg-center mx-10 ">
         <div className="backdrop-blur-md bg-white/10 border border-white/20 shadow-xl rounded-2xl px-8 py-2 w-96 text-white">
             <h3 className="text-2xl font-semibold mb-2 text-center">Edit Profile</h3>
-            <form className=' h-[70vh] overflow-y-scroll px-2'>
+            <form className=' h-[58vh] overflow-y-scroll px-2'>
               <div className="mb-1">
                   <label className="block text-sm font-medium mb-1">First Name</label>
                   <input
@@ -148,8 +148,10 @@ const Profile = () => {
               </div>
             </form>
         </div>
-      </div>  
-      <FeedCard user={{firstName, lastName, profilePic, age, about, gender, isPremium}} />
+      </div> 
+      <div className='hidden sm:block'>  
+        <FeedCard user={{firstName, lastName, profilePic, age, about, gender, isPremium}} />
+      </div> 
     </div>
   )
 }

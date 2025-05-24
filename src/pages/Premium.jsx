@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { toast } from "react-toastify";
 
-const SubscriptionCard = ({ title, price, plan, benefits, disabled, selectedPlan, expire, handlePayment }) => (
+const SubscriptionCard = ({ title, price, plan, benefits, disabled, selectedPlan, handlePayment }) => (
   <div className="bg-white/10 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl p-6 w-full max-w-sm h-fit text-white">
     <h2 className="text-2xl font-semibold mb-4 text-center">{title}</h2>
     <p className="text-4xl font-bold text-center mb-6">₹{price}</p>
@@ -106,8 +106,8 @@ const Premium = () => {
         <h2 className="text-white text-xl">Please wait, we are processing!</h2>
       </div>
     ) : (
-      <div className="flex items-center justify-center p-6">
-        <div className="flex gap-5 mx-3">
+      <div className="flex items-center justify-center p-6 flex-col overflow-y-scroll sm:block">
+        <div className="flex gap-5 mx-3 flex-col sm:block">
           {PREMIUM_PLANS.map((item) => (
             <SubscriptionCard 
               key={item.plan}
@@ -122,7 +122,7 @@ const Premium = () => {
             />
           ))}
         </div>
-        <img src={paymentImg} alt="img" className="w-fit h-120" />
+        <img src={paymentImg} alt="img" className="w-fit h-120 hidden sm:block" />
       </div>
     )
     )
