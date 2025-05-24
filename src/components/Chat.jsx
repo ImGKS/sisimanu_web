@@ -160,7 +160,7 @@ export default function Chat() {
                                     <div className={`rounded-xl px-4 py-2 mt-1 max-w-xs text-white ${msg.firstName !== loggedInUser.firstName ? 'bg-blue-500/80' : 'bg-gray-500/70'}`}>
                                         {msg.text}
                                     </div>
-                                    <div className="text-xs text-white/60 mt-1">{msg.firstName === loggedInUser.firstName ? `Seen at ${msg.time}` : msg.time}</div>
+                                    <div className="text-xs text-white/60 mt-1">{msg.firstName === loggedInUser.firstName ? `Sent at ${msg.time}` : msg.time}</div>
                                 </div>
                             </div>
                         </div>

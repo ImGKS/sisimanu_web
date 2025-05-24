@@ -106,8 +106,8 @@ const Premium = () => {
         <h2 className="text-white text-xl">Please wait, we are processing!</h2>
       </div>
     ) : (
-      <div className="flex items-center justify-center p-6 flex-col overflow-y-scroll sm:block">
-        <div className="flex gap-5 mx-3 flex-col sm:block">
+      <div className="flex items-center justify-center p-6 flex-col overflow-y-scroll sm:flex-row">
+        <div className="flex gap-5 mx-3 flex-col sm:flex-row">
           {PREMIUM_PLANS.map((item) => (
             <SubscriptionCard 
               key={item.plan}

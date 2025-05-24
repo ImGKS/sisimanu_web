@@ -31,7 +31,8 @@ const SignUp = () => {
                 toast.success(res.message)
             }
         } catch (error) {
-            console.log("Error :", error.message);
+            console.log("Error :", error);
+            toast.error(error.response.data.message)
         }
     }
 

@@ -29,13 +29,14 @@ const Feed = () => {
   },[])
 
   const updateUserRequest = async (status, id) => {
-    const message = status === "interested" ? "Request sent successfully." : "User get Ignored."
+    let message = status === "interested" ? "Request sent successfully." : "User get Ignored."
     try {
-      await axios.post(`${BASE_URL}/request/send/${status}/${id}`, 
+      const res = await axios.post(`${BASE_URL}/request/send/${status}/${id}`, 
           {},
           {withCredentials: true}
-      ); 
-      toast.success(message)
+      );
+      message = res?.status === 401 ? res?.data?.message : message
+      toast.info(message)
       getFeed()
 
     } catch (error) {
