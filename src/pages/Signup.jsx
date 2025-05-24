@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import { BASE_URL } from '../utils/urlConstant';
 
 const SignUp = () => {
     const[firstName, setFirstName] = useState('');
@@ -18,7 +19,7 @@ const SignUp = () => {
     const handleSignUp = async(e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:3000/signup", 
+            const res = await axios.post(`${BASE_URL}/signup`, 
                 { firstName, lastName, gender, age, emailId, password, profilePic, about },
                 {withCredentials: true}
             );   
