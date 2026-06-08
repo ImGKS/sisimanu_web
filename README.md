@@ -1,12 +1,40 @@
-# React + Vite
+# Deployment
+- Launch Instance
+- connect -> SSH (cloud to local terminal)
+- chmod 400 "bridge.pem"
+	- for window
+		- icacls.exe "bridge.pem" /reset
+		- icacls.exe "bridge.pem" /grant:r "%USERNAME%:(R)" /inheritance:r
+- ssh -i "bridge.pem" ubuntu@ec2-3-109-210-168.ap-south-1.compute.amazonaws.com
+- install node with same version as project
+- clone project
+	- FE
+	- BE
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Deploy FE
+	- How we run in local? - npm run dev
+	- In prod. - we make build first
+		- npm run build
+		- it create a dist folder
+		- we will deploy dist folder
+	
+	- Inside FE folder
+		- npm i 
+		- npm run build
+		- ls -> dist folder
+		
+	- To deploy FE project, we need
+		- nginx - engine X
+		- Install nginx
+			- sudo apt update
+			- sudo apt install nginx
+		- start nginx
+			- sudo systemctl start nginx
+			- sudo systemctl enable nginx
+	
+	- copy file from dist(build) folder to nginx http server (/var/www/html/)
+		- sudo scp -r dist/* /var/www/html/
+		
+	- By default, aws block all ports.
+	- enable port-80
+		- instance -> security -> security group -> inbound rules
