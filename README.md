@@ -1,6 +1,7 @@
 # Deployment
 - Launch Instance
 - connect -> SSH (cloud to local terminal)
+- in cmd, get path to download
 - chmod 400 "bridge.pem"
 	- for window
 		- icacls.exe "bridge.pem" /reset
@@ -103,3 +104,22 @@
 - build the new code
 - copy this to /var/www/html folder
 	- sudo scp -r dist/* /var/www/html
+
+<!-- Domain name -->
+- purchase the domain
+- cloudflare
+	- signup & add new domain
+	- get the nameserver from cloudfare
+	- change the nameserver in godaddy
+	- update the A record in cloudflare
+	- For SSL/TSL
+		- SSL/TLS
+		- Custom -> Flexible
+		- Edge certificate
+			- Automatic HTTPS
+
+- .env
+	- sudo nano .env
+	- copy env data
+	- save file
+	- restart pm2
