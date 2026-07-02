@@ -123,3 +123,51 @@
 	- copy env data
 	- save file
 	- restart pm2
+
+<!-- ------------------------------------------------------------------------------------------ -->
+- node-cron
+	- CRONTAB GURU - website to visualize cron time
+	- date-fns - npm package to deal with date and days
+	- bee-queue - To handle large data in queue
+	- bullMQ npm for queue
+
+<!-- --------------------------------------------------------------------------- -->
+- ssh -i bridge.pem ubuntu@13.201.36.182
+
+<!-- Create Memory in EC2 to make build -->
+- sudo fallocate -l 2G /swapfile
+- sudo chmod 600 /swapfile
+- sudo mkswap /swapfile
+- sudo swapon /swapfile
+
+<!-- Check the Memory -->
+- free -h
+
+- npm run build
+
+<!-- Remove the extra Memory -->
+- sudo swapoff /swapfile
+- sudo rm /swapfile
+- free -h
+- swapon --show
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+- JTI (JWT ID) - Unique ID
+	- unique identifier for every JWT token.
+	- we add jti in payload of token.
+	- server doesn't remember which tokens exist.
+	- User login, someone steals Access token. Even if the real user logs out, The stolen token is still valid until expiration.
+	- Solution - every token gets its own identity.
+	- Block Individual token.
+	- Use Case
+		- 1. Logout - Mark jti revoked.
+		- 2. Block stolen token - Specific jti revoked.
+		- 3. Allow only 3 devices - Each device gets its own jti.
+		- 4. Refresh Token Rotation - Old refresh token's jti becomes invalid.
+		- 5. Admin force logout - Admin can revoke all active jtis for a user.
+		- 6. Detect suspicious activity - If the same jti suddenly appears from different countries or IP addresses at the same time, you can flag or revoke it.
+		- 7. Store JTI with refresh token and use it with access token.
+
+	- A secure JWT authentication system should use short-lived access tokens (10–15 minutes) and long-lived refresh tokens (around 30 days). When a user logs in, the server generates both tokens and assigns a unique JTI (JWT ID) to the refresh token. Instead of storing the refresh token itself, the server stores its hash, along with the JTI, user ID, device information, and refresh token in the database. The access token is returned to the client and used to access protected APIs, while the refresh token is stored in an HttpOnly, Secure cookie so it cannot be accessed by JavaScript.
+
+	For normal API requests, the server only verifies the access token's signature and expiration, avoiding any database lookup for better performance. When the access token expires, the client calls the refresh endpoint, automatically sending the refresh token via the HttpOnly cookie. The server verifies the refresh token, extracts its JTI, validates the corresponding refresh toekn in the database, and then issues a new access token and a new refresh token with a new JTI (refresh token rotation) and update in the db. On logout, the server revokes or deletes the refreshh token and jti record associated with that JTI and clears the refresh token cookie, preventing any future token refreshes.
